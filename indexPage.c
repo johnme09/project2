@@ -49,18 +49,21 @@ void indexPage(const char *url);
 int addWordOccurrence(const char *word, const int wordLength
                       /* TODO: other parameters you need */);
 
-void printTrieContents(/* TODO: any parameters you need */);
+void printTrieContents(struct trieNode *currentNode, char *previousCharacters);
 
-int freeTrieMemory(/* TODO: any parameters you need */);
+int freeTrieMemory(struct trieNode *currentNode);
 
 int getText(const char *srcAddr, char *buffer, const int bufSize);
 
 int main(int argc, char **argv)
 {
   /* TODO: write the (simple) main function
-
+if(argc < 2){
+printf("USAGE: %s URL\n", argv[0]);
+return -1;
+}
   /* argv[1] will be the URL to index, if argc > 1 */
-
+  indexPage(argv[1]);
   return 0;
 }
 
@@ -76,12 +79,187 @@ int addWordOccurrence(const char *word, const int wordLength
 {
 }
 
-void printTrieContents(/* TODO: any parameters you need */)
+void printTrieContents(struct trieNode *currentNode, char *previousCharacters)
 {
+  int stringLength = strlen(previousCharacters);
+  if (currentNode->count)
+  {
+    previousCharacters[stringLength] = '\0';
+    printf("%s", previousCharacters);
+  }
+  if (currentNode->aChild != NULL)
+  {
+    previousCharacters[stringLength] = 'a';
+    printTrieContents(currentNode->aChild, previousCharacters);
+  }
+  if (currentNode->bChild != NULL)
+  {
+    previousCharacters[stringLength] = 'b';
+    printTrieContents(currentNode->bChild, previousCharacters);
+  }
+  if (currentNode->cChild != NULL)
+  {
+    previousCharacters[stringLength] = 'c';
+    printTrieContents(currentNode->cChild, previousCharacters);
+  }
+  if (currentNode->dChild != NULL)
+  {
+    previousCharacters[stringLength] = 'd';
+    printTrieContents(currentNode->dChild, previousCharacters);
+  }
+  if (currentNode->eChild != NULL)
+  {
+    previousCharacters[stringLength] = 'e';
+    printTrieContents(currentNode->eChild, previousCharacters);
+  }
+  if (currentNode->fChild != NULL)
+  {
+    previousCharacters[stringLength] = 'f';
+    printTrieContents(currentNode->fChild, previousCharacters);
+  }
+  if (currentNode->gChild != NULL)
+  {
+    previousCharacters[stringLength] = 'g';
+    printTrieContents(currentNode->gChild, previousCharacters);
+  }
+  if (currentNode->hChild != NULL)
+  {
+    previousCharacters[stringLength] = 'h';
+    printTrieContents(currentNode->hChild, previousCharacters);
+  }
+  if (currentNode->iChild != NULL)
+  {
+    previousCharacters[stringLength] = 'i';
+    printTrieContents(currentNode->iChild, previousCharacters);
+  }
+  if (currentNode->jChild != NULL)
+  {
+    previousCharacters[stringLength] = 'j';
+    printTrieContents(currentNode->jChild, previousCharacters);
+  }
+  if (currentNode->kChild != NULL)
+  {
+    previousCharacters[stringLength] = 'k';
+    printTrieContents(currentNode->kChild, previousCharacters);
+  }
+  if (currentNode->lChild != NULL)
+  {
+    previousCharacters[stringLength] = 'l';
+    printTrieContents(currentNode->lChild, previousCharacters);
+  }
+  if (currentNode->mChild != NULL)
+  {
+    previousCharacters[stringLength] = 'm';
+    printTrieContents(currentNode->mChild, previousCharacters);
+  }
+  if (currentNode->nChild != NULL)
+  {
+    previousCharacters[stringLength] = 'n';
+    printTrieContents(currentNode->nChild, previousCharacters);
+  }
+  if (currentNode->oChild != NULL)
+  {
+    previousCharacters[stringLength] = 'o';
+    printTrieContents(currentNode->oChild, previousCharacters);
+  }
+  if (currentNode->pChild != NULL)
+  {
+    previousCharacters[stringLength] = 'p';
+    printTrieContents(currentNode->pChild, previousCharacters);
+  }
+  if (currentNode->qChild != NULL)
+  {
+    previousCharacters[stringLength] = 'q';
+    printTrieContents(currentNode->qChild, previousCharacters);
+  }
+  if (currentNode->rChild != NULL)
+  {
+    previousCharacters[stringLength] = 'r';
+    printTrieContents(currentNode->rChild, previousCharacters);
+  }
+  if (currentNode->sChild != NULL)
+  {
+    previousCharacters[stringLength] = 's';
+    printTrieContents(currentNode->sChild, previousCharacters);
+  }
+  if (currentNode->tChild != NULL)
+  {
+    previousCharacters[stringLength] = 't';
+    printTrieContents(currentNode->tChild, previousCharacters);
+  }
+  if (currentNode->uChild != NULL)
+  {
+    previousCharacters[stringLength] = 'u';
+    printTrieContents(currentNode->uChild, previousCharacters);
+  }
+  if (currentNode->vChild != NULL)
+  {
+    previousCharacters[stringLength] = 'v';
+    printTrieContents(currentNode->vChild, previousCharacters);
+  }
+  if (currentNode->wChild != NULL)
+  {
+    previousCharacters[stringLength] = 'w';
+    printTrieContents(currentNode->wChild, previousCharacters);
+  }
+  if (currentNode->xChild != NULL)
+  {
+    previousCharacters[stringLength] = 'x';
+    printTrieContents(currentNode->xChild, previousCharacters);
+  }
+  if (currentNode->yChild != NULL)
+  {
+    previousCharacters[stringLength] = 'y';
+    printTrieContents(currentNode->yChild, previousCharacters);
+  }
+  if (currentNode->zChild != NULL)
+  {
+    previousCharacters[stringLength] = 'z';
+    printTrieContents(currentNode->zChild, previousCharacters);
+  }
 }
 
-int freeTrieMemory(/* TODO: any parameters you need */)
+int freeTrieMemory(struct trieNode *currentNode)
 {
+  if (currentNode == NULL)
+  {
+    return 1;
+  }
+  int count = 0;
+  count += freeTrieMemory((*currentNode).aChild);
+  count += freeTrieMemory((*currentNode).bChild);
+  count += freeTrieMemory((*currentNode).cChild);
+  count += freeTrieMemory((*currentNode).dChild);
+  count += freeTrieMemory((*currentNode).eChild);
+  count += freeTrieMemory((*currentNode).fChild);
+  count += freeTrieMemory((*currentNode).gChild);
+  count += freeTrieMemory((*currentNode).hChild);
+  count += freeTrieMemory((*currentNode).iChild);
+  count += freeTrieMemory((*currentNode).jChild);
+  count += freeTrieMemory((*currentNode).kChild);
+  count += freeTrieMemory((*currentNode).lChild);
+  count += freeTrieMemory((*currentNode).mChild);
+  count += freeTrieMemory((*currentNode).nChild);
+  count += freeTrieMemory((*currentNode).oChild);
+  count += freeTrieMemory((*currentNode).pChild);
+  count += freeTrieMemory((*currentNode).qChild);
+  count += freeTrieMemory((*currentNode).rChild);
+  count += freeTrieMemory((*currentNode).sChild);
+  count += freeTrieMemory((*currentNode).tChild);
+  count += freeTrieMemory((*currentNode).uChild);
+  count += freeTrieMemory((*currentNode).vChild);
+  count += freeTrieMemory((*currentNode).wChild);
+  count += freeTrieMemory((*currentNode).xChild);
+  count += freeTrieMemory((*currentNode).yChild);
+  count += freeTrieMemory((*currentNode).zChild);
+  if (count == 26)
+  {
+    free(currentNode);
+  }
+  else
+  {
+    freeTrieMemory(currentNode);
+  }
 }
 
 /* You should not need to modify this function */

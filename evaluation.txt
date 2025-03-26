@@ -1,2 +1,6 @@
-Mary	Hours Worked: 1		Functions Made:
-Elize	Hours Worked: 		Functions Made:
+Mary	Hours Worked: 1.5
+Functions Made:
+freeTrieMemory
+printTrieContents
+Elize	Hours Worked:
+Functions Made:
