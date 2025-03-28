@@ -81,142 +81,93 @@ int addWordOccurrence(const char *word, const int wordLength
 
 void printTrieContents(struct trieNode *currentNode, char *previousCharacters)
 {
+  if (currentNode == NULL)
+  {
+    return;
+  }
   int stringLength = strlen(previousCharacters);
   if (currentNode->count)
   {
-    previousCharacters[stringLength] = '\0';
     printf("%s", previousCharacters);
   }
-  if (currentNode->aChild != NULL)
-  {
-    previousCharacters[stringLength] = 'a';
-    printTrieContents(currentNode->aChild, previousCharacters);
-  }
-  if (currentNode->bChild != NULL)
-  {
-    previousCharacters[stringLength] = 'b';
-    printTrieContents(currentNode->bChild, previousCharacters);
-  }
-  if (currentNode->cChild != NULL)
-  {
-    previousCharacters[stringLength] = 'c';
-    printTrieContents(currentNode->cChild, previousCharacters);
-  }
-  if (currentNode->dChild != NULL)
-  {
-    previousCharacters[stringLength] = 'd';
-    printTrieContents(currentNode->dChild, previousCharacters);
-  }
-  if (currentNode->eChild != NULL)
-  {
-    previousCharacters[stringLength] = 'e';
-    printTrieContents(currentNode->eChild, previousCharacters);
-  }
-  if (currentNode->fChild != NULL)
-  {
-    previousCharacters[stringLength] = 'f';
-    printTrieContents(currentNode->fChild, previousCharacters);
-  }
-  if (currentNode->gChild != NULL)
-  {
-    previousCharacters[stringLength] = 'g';
-    printTrieContents(currentNode->gChild, previousCharacters);
-  }
-  if (currentNode->hChild != NULL)
-  {
-    previousCharacters[stringLength] = 'h';
-    printTrieContents(currentNode->hChild, previousCharacters);
-  }
-  if (currentNode->iChild != NULL)
-  {
-    previousCharacters[stringLength] = 'i';
-    printTrieContents(currentNode->iChild, previousCharacters);
-  }
-  if (currentNode->jChild != NULL)
-  {
-    previousCharacters[stringLength] = 'j';
-    printTrieContents(currentNode->jChild, previousCharacters);
-  }
-  if (currentNode->kChild != NULL)
-  {
-    previousCharacters[stringLength] = 'k';
-    printTrieContents(currentNode->kChild, previousCharacters);
-  }
-  if (currentNode->lChild != NULL)
-  {
-    previousCharacters[stringLength] = 'l';
-    printTrieContents(currentNode->lChild, previousCharacters);
-  }
-  if (currentNode->mChild != NULL)
-  {
-    previousCharacters[stringLength] = 'm';
-    printTrieContents(currentNode->mChild, previousCharacters);
-  }
-  if (currentNode->nChild != NULL)
-  {
-    previousCharacters[stringLength] = 'n';
-    printTrieContents(currentNode->nChild, previousCharacters);
-  }
-  if (currentNode->oChild != NULL)
-  {
-    previousCharacters[stringLength] = 'o';
-    printTrieContents(currentNode->oChild, previousCharacters);
-  }
-  if (currentNode->pChild != NULL)
-  {
-    previousCharacters[stringLength] = 'p';
-    printTrieContents(currentNode->pChild, previousCharacters);
-  }
-  if (currentNode->qChild != NULL)
-  {
-    previousCharacters[stringLength] = 'q';
-    printTrieContents(currentNode->qChild, previousCharacters);
-  }
-  if (currentNode->rChild != NULL)
-  {
-    previousCharacters[stringLength] = 'r';
-    printTrieContents(currentNode->rChild, previousCharacters);
-  }
-  if (currentNode->sChild != NULL)
-  {
-    previousCharacters[stringLength] = 's';
-    printTrieContents(currentNode->sChild, previousCharacters);
-  }
-  if (currentNode->tChild != NULL)
-  {
-    previousCharacters[stringLength] = 't';
-    printTrieContents(currentNode->tChild, previousCharacters);
-  }
-  if (currentNode->uChild != NULL)
-  {
-    previousCharacters[stringLength] = 'u';
-    printTrieContents(currentNode->uChild, previousCharacters);
-  }
-  if (currentNode->vChild != NULL)
-  {
-    previousCharacters[stringLength] = 'v';
-    printTrieContents(currentNode->vChild, previousCharacters);
-  }
-  if (currentNode->wChild != NULL)
-  {
-    previousCharacters[stringLength] = 'w';
-    printTrieContents(currentNode->wChild, previousCharacters);
-  }
-  if (currentNode->xChild != NULL)
-  {
-    previousCharacters[stringLength] = 'x';
-    printTrieContents(currentNode->xChild, previousCharacters);
-  }
-  if (currentNode->yChild != NULL)
-  {
-    previousCharacters[stringLength] = 'y';
-    printTrieContents(currentNode->yChild, previousCharacters);
-  }
-  if (currentNode->zChild != NULL)
-  {
-    previousCharacters[stringLength] = 'z';
-    printTrieContents(currentNode->zChild, previousCharacters);
-  }
+  previousCharacters[stringLength + 1] = '\0';
+  previousCharacters[stringLength] = 'a';
+  printTrieContents(currentNode->aChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'b';
+  printTrieContents(currentNode->bChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'c';
+  printTrieContents(currentNode->cChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'd';
+  printTrieContents(currentNode->dChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'e';
+  printTrieContents(currentNode->eChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'f';
+  printTrieContents(currentNode->fChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'g';
+  printTrieContents(currentNode->gChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'h';
+  printTrieContents(currentNode->hChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'i';
+  printTrieContents(currentNode->iChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'j';
+  printTrieContents(currentNode->jChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'k';
+  printTrieContents(currentNode->kChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'l';
+  printTrieContents(currentNode->lChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'm';
+  printTrieContents(currentNode->mChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'n';
+  printTrieContents(currentNode->nChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'o';
+  printTrieContents(currentNode->oChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'p';
+  printTrieContents(currentNode->pChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'q';
+  printTrieContents(currentNode->qChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'r';
+  printTrieContents(currentNode->rChild, previousCharacters);
+
+  previousCharacters[stringLength] = 's';
+  printTrieContents(currentNode->sChild, previousCharacters);
+
+  previousCharacters[stringLength] = 't';
+  printTrieContents(currentNode->tChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'u';
+  printTrieContents(currentNode->uChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'v';
+  printTrieContents(currentNode->vChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'w';
+  printTrieContents(currentNode->wChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'x';
+  printTrieContents(currentNode->xChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'y';
+  printTrieContents(currentNode->yChild, previousCharacters);
+
+  previousCharacters[stringLength] = 'z';
+  printTrieContents(currentNode->zChild, previousCharacters);
 }
 
 int freeTrieMemory(struct trieNode *currentNode)
