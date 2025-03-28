@@ -46,8 +46,7 @@ struct trieNode
 /* TODO: change this return type */
 void indexPage(const char *url);
 
-int addWordOccurrence(const char *word, const int wordLength
-                      /* TODO: other parameters you need */);
+int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode);
 
 void printTrieContents(struct trieNode *currentNode, char *previousCharacters);
 
@@ -74,9 +73,302 @@ void indexPage(const char *url)
 {
 }
 
-int addWordOccurrence(const char *word, const int wordLength
-                      /* TODO: other parameters you need */)
+int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode)
 {
+  char firstChar = word[0];
+  switch (firstChar)
+  {
+  case '\0':
+    currentNode->count += 1;
+    break;
+  case 'a':
+    if (currentNode->aChild == NULL)
+    {
+      currentNode->aChild = malloc(sizeof(struct trieNode));
+      if (currentNode->aChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->aChild);
+    break;
+  case 'b':
+    if (currentNode->bChild == NULL)
+    {
+      currentNode->bChild = malloc(sizeof(struct trieNode));
+      if (currentNode->bChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->bChild);
+    break;
+  case 'c':
+    if (currentNode->cChild == NULL)
+    {
+      currentNode->cChild = malloc(sizeof(struct trieNode));
+      if (currentNode->cChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->cChild);
+    break;
+  case 'd':
+    if (currentNode->dChild == NULL)
+    {
+      currentNode->dChild = malloc(sizeof(struct trieNode));
+      if (currentNode->dChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->dChild);
+    break;
+  case 'e':
+    if (currentNode->eChild == NULL)
+    {
+      currentNode->eChild = malloc(sizeof(struct trieNode));
+      if (currentNode->eChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->eChild);
+    break;
+  case 'f':
+    if (currentNode->fChild == NULL)
+    {
+      currentNode->fChild = malloc(sizeof(struct trieNode));
+      if (currentNode->fChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->fChild);
+    break;
+  case 'g':
+    if (currentNode->gChild == NULL)
+    {
+      currentNode->gChild = malloc(sizeof(struct trieNode));
+      if (currentNode->gChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->gChild);
+    break;
+  case 'h':
+    if (currentNode->hChild == NULL)
+    {
+      currentNode->hChild = malloc(sizeof(struct trieNode));
+      if (currentNode->hChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->hChild);
+    break;
+  case 'i':
+    if (currentNode->iChild == NULL)
+    {
+      currentNode->iChild = malloc(sizeof(struct trieNode));
+      if (currentNode->iChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->iChild);
+    break;
+  case 'j':
+    if (currentNode->jChild == NULL)
+    {
+      currentNode->jChild = malloc(sizeof(struct trieNode));
+      if (currentNode->jChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->jChild);
+    break;
+  case 'k':
+    if (currentNode->kChild == NULL)
+    {
+      currentNode->kChild = malloc(sizeof(struct trieNode));
+      if (currentNode->kChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->kChild);
+    break;
+  case 'l':
+    if (currentNode->lChild == NULL)
+    {
+      currentNode->lChild = malloc(sizeof(struct trieNode));
+      if (currentNode->lChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->lChild);
+    break;
+  case 'm':
+    if (currentNode->mChild == NULL)
+    {
+      currentNode->mChild = malloc(sizeof(struct trieNode));
+      if (currentNode->mChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->mChild);
+    break;
+  case 'n':
+    if (currentNode->nChild == NULL)
+    {
+      currentNode->nChild = malloc(sizeof(struct trieNode));
+      if (currentNode->nChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->nChild);
+    break;
+  case 'o':
+    if (currentNode->oChild == NULL)
+    {
+      currentNode->oChild = malloc(sizeof(struct trieNode));
+      if (currentNode->oChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->oChild);
+    break;
+  case 'p':
+    if (currentNode->pChild == NULL)
+    {
+      currentNode->pChild = malloc(sizeof(struct trieNode));
+      if (currentNode->pChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->pChild);
+    break;
+  case 'q':
+    if (currentNode->qChild == NULL)
+    {
+      currentNode->qChild = malloc(sizeof(struct trieNode));
+      if (currentNode->qChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->qChild);
+    break;
+  case 'r':
+    if (currentNode->rChild == NULL)
+    {
+      currentNode->rChild = malloc(sizeof(struct trieNode));
+      if (currentNode->rChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->rChild);
+    break;
+  case 's':
+    if (currentNode->sChild == NULL)
+    {
+      currentNode->sChild = malloc(sizeof(struct trieNode));
+      if (currentNode->sChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->sChild);
+    break;
+  case 't':
+    if (currentNode->tChild == NULL)
+    {
+      currentNode->tChild = malloc(sizeof(struct trieNode));
+      if (currentNode->tChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->tChild);
+    break;
+  case 'u':
+    if (currentNode->uChild == NULL)
+    {
+      currentNode->uChild = malloc(sizeof(struct trieNode));
+      if (currentNode->uChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->uChild);
+    break;
+  case 'v':
+    if (currentNode->vChild == NULL)
+    {
+      currentNode->vChild = malloc(sizeof(struct trieNode));
+      if (currentNode->vChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->vChild);
+    break;
+  case 'w':
+    if (currentNode->wChild == NULL)
+    {
+      currentNode->wChild = malloc(sizeof(struct trieNode));
+      if (currentNode->wChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->wChild);
+    break;
+  case 'x':
+    if (currentNode->xChild == NULL)
+    {
+      currentNode->xChild = malloc(sizeof(struct trieNode));
+      if (currentNode->xChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->xChild);
+    break;
+  case 'y':
+    if (currentNode->yChild == NULL)
+    {
+      currentNode->yChild = malloc(sizeof(struct trieNode));
+      if (currentNode->yChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->yChild);
+    break;
+  case 'z':
+    if (currentNode->zChild == NULL)
+    {
+      currentNode->zChild = malloc(sizeof(struct trieNode));
+      if (currentNode->zChild == NULL)
+      {
+        return -1;
+      }
+    }
+    addWordOccurrence(word + 1, wordLength - 1, currentNode->zChild);
+    break;
+  }
+  return 0;
 }
 
 void printTrieContents(struct trieNode *currentNode, char *previousCharacters)
@@ -174,7 +466,7 @@ int freeTrieMemory(struct trieNode *currentNode)
 {
   if (currentNode == NULL)
   {
-    return 1;
+    return 0;
   }
   int count = 0;
   count += freeTrieMemory((*currentNode).aChild);
