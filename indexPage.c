@@ -44,7 +44,7 @@ struct trieNode
    or success (typically zero return value) */
 
 /* TODO: change this return type */
-void indexPage(const char *url);
+int indexPage(const char* url, struct trieNode *root);
 
 int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode);
 
@@ -62,15 +62,93 @@ printf("USAGE: %s URL\n", argv[0]);
 return -1;
 }
   /* argv[1] will be the URL to index, if argc > 1 */
-  indexPage(argv[1]);
-  return 0;
+  struct trieNode *root = malloc(sizeof(struct trieNode));
+if (root == NULL) {
+    printf("Memory allocation failed for root node\n");
+    return -1;
 }
+memset(root, 0, sizeof(struct trieNode)); // initialize all fields to 0
+
+if (indexPage(argv[1], root) != 0) {
+    return -1;
+}
+
+char wordBuffer[1000] = "";
+printTrieContents(root, wordBuffer);
+freeTrieMemory(root);
+
+return 0;
+
+}
+
+
 
 /* TODO: define the functions corresponding to the above prototypes */
 
 /* TODO: change this return type */
-void indexPage(const char *url)
-{
+int indexPage(const char* url, struct trieNode *root) {
+    const int MAX_INDEX = 300000;
+    char *buffer = (char*) malloc(sizeof(char) * MAX_INDEX);
+    if (buffer == NULL) {
+        printf("Memory Allocation Failed: buffer\n");
+        freeTrieMemory(root);
+        return -1;
+    }
+
+    int bufferSize = getText(url, buffer, MAX_INDEX);
+    if (bufferSize == 0) {
+        printf("getText failed\n");
+        free(buffer);
+        freeTrieMemory(root);
+        return -1;
+    }
+
+    printf("%s\n", url);
+
+    for (int i = 0; i < bufferSize; i++) {
+        if (!isalpha(buffer[i])) {
+            buffer[i] = ' ';
+        } else if (isupper(buffer[i])) {
+            buffer[i] = tolower(buffer[i]);
+        }
+    }
+
+    char *word = (char*) malloc(sizeof(char) * MAX_INDEX); 
+    if (word == NULL) {
+        printf("Memory Allocation Failed: word\n");
+        free(buffer);
+        freeTrieMemory(root);
+        return -1;
+    }
+
+    char *wordBuffer = word;
+    char *bufferCursor = buffer;
+    int wordLength = 0;
+
+    while (sscanf(bufferCursor, "%s%n", wordBuffer, &wordLength) == 1) {
+        printf("\t%s\n", wordBuffer);
+
+        if ((addWordOccurrence(wordBuffer, wordLength, root)) != 0) {
+            printf("addWordOccurrence failed\n");
+            free(buffer);
+            free(word);
+            freeTrieMemory(root);
+            return -1;
+        }
+
+        bufferCursor += wordLength;
+        while (*bufferCursor == ' ') {
+            bufferCursor++;
+        }
+    }
+
+    free(word);
+    free(buffer);
+    return 0;
+
+
+
+  
 }
 
 int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode)
