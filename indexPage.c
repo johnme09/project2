@@ -44,7 +44,7 @@ struct trieNode
    or success (typically zero return value) */
 
 /* TODO: change this return type */
-int indexPage(const char* url, struct trieNode *root);
+int indexPage(const char *url, struct trieNode *root);
 
 int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode);
 
@@ -56,99 +56,105 @@ int getText(const char *srcAddr, char *buffer, const int bufSize);
 
 int main(int argc, char **argv)
 {
-  /* TODO: write the (simple) main function
-if(argc < 2){
-printf("USAGE: %s URL\n", argv[0]);
-return -1;
-}
-  /* argv[1] will be the URL to index, if argc > 1 */
+  if (argc < 2)
+  {
+    printf("USAGE: %s URL\n", argv[0]);
+    return -1;
+  }
   struct trieNode *root = malloc(sizeof(struct trieNode));
-if (root == NULL) {
+  if (root == NULL)
+  {
     printf("Memory allocation failed for root node\n");
     return -1;
-}
-memset(root, 0, sizeof(struct trieNode)); // initialize all fields to 0
+  }
+  // memset(root, 0, sizeof(struct trieNode)); // initialize all fields to 0
+  root->count = 0;
 
-if (indexPage(argv[1], root) != 0) {
+  if (indexPage(argv[1], root) != 0)
+  {
     return -1;
+  }
+
+  char wordBuffer[1000] = "";
+  printTrieContents(root, wordBuffer);
+  freeTrieMemory(root);
+
+  return 0;
 }
-
-char wordBuffer[1000] = "";
-printTrieContents(root, wordBuffer);
-freeTrieMemory(root);
-
-return 0;
-
-}
-
-
 
 /* TODO: define the functions corresponding to the above prototypes */
 
 /* TODO: change this return type */
-int indexPage(const char* url, struct trieNode *root) {
-    const int MAX_INDEX = 300000;
-    char *buffer = (char*) malloc(sizeof(char) * MAX_INDEX);
-    if (buffer == NULL) {
-        printf("Memory Allocation Failed: buffer\n");
-        freeTrieMemory(root);
-        return -1;
-    }
+int indexPage(const char *url, struct trieNode *root)
+{
+  const int MAX_INDEX = 300000;
+  char *buffer = (char *)malloc(sizeof(char) * MAX_INDEX);
+  if (buffer == NULL)
+  {
+    printf("Memory Allocation Failed: buffer\n");
+    freeTrieMemory(root);
+    return -1;
+  }
 
-    int bufferSize = getText(url, buffer, MAX_INDEX);
-    if (bufferSize == 0) {
-        printf("getText failed\n");
-        free(buffer);
-        freeTrieMemory(root);
-        return -1;
-    }
-
-    printf("%s\n", url);
-
-    for (int i = 0; i < bufferSize; i++) {
-        if (!isalpha(buffer[i])) {
-            buffer[i] = ' ';
-        } else if (isupper(buffer[i])) {
-            buffer[i] = tolower(buffer[i]);
-        }
-    }
-
-    char *word = (char*) malloc(sizeof(char) * MAX_INDEX); 
-    if (word == NULL) {
-        printf("Memory Allocation Failed: word\n");
-        free(buffer);
-        freeTrieMemory(root);
-        return -1;
-    }
-
-    char *wordBuffer = word;
-    char *bufferCursor = buffer;
-    int wordLength = 0;
-
-    while (sscanf(bufferCursor, "%s%n", wordBuffer, &wordLength) == 1) {
-        printf("\t%s\n", wordBuffer);
-
-        if ((addWordOccurrence(wordBuffer, wordLength, root)) != 0) {
-            printf("addWordOccurrence failed\n");
-            free(buffer);
-            free(word);
-            freeTrieMemory(root);
-            return -1;
-        }
-
-        bufferCursor += wordLength;
-        while (*bufferCursor == ' ') {
-            bufferCursor++;
-        }
-    }
-
-    free(word);
+  int bufferSize = getText(url, buffer, MAX_INDEX);
+  if (bufferSize == 0)
+  {
+    printf("getText failed\n");
     free(buffer);
-    return 0;
+    freeTrieMemory(root);
+    return -1;
+  }
 
+  // printf("%s\n", url);
 
+  for (int i = 0; i < bufferSize; i++)
+  {
+    if (!isalpha(buffer[i]))
+    {
+      buffer[i] = ' ';
+    }
+    else if (isupper(buffer[i]))
+    {
+      buffer[i] = tolower(buffer[i]);
+    }
+  }
 
-  
+  char *word = malloc(sizeof(char) * MAX_INDEX);
+  if (word == NULL)
+  {
+    printf("Memory Allocation Failed: word\n");
+    free(buffer);
+    freeTrieMemory(root);
+    return -1;
+  }
+
+  char *wordBuffer = word;
+  char *bufferCursor = buffer;
+  int wordLength = 0;
+
+  while (sscanf(bufferCursor, "%s", wordBuffer, &wordLength) == 1)
+  {
+    // printf("\t%s\n", wordBuffer);
+
+    if ((addWordOccurrence(wordBuffer, wordLength, root)) != 0)
+    {
+      printf("addWordOccurrence failed\n");
+      free(buffer);
+      free(word);
+      freeTrieMemory(root);
+      return -1;
+    }
+
+    bufferCursor += wordLength;
+    while (*bufferCursor == ' ')
+    {
+      bufferCursor++;
+    }
+  }
+
+  free(word);
+  free(buffer);
+  return 0;
 }
 
 int addWordOccurrence(const char *word, const int wordLength, struct trieNode *currentNode)
@@ -159,6 +165,7 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
   case '\0':
     currentNode->count += 1;
     break;
+  case 'A':
   case 'a':
     if (currentNode->aChild == NULL)
     {
@@ -167,9 +174,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->aChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->aChild);
     break;
+  case 'B':
   case 'b':
     if (currentNode->bChild == NULL)
     {
@@ -178,9 +187,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->bChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->bChild);
     break;
+  case 'C':
   case 'c':
     if (currentNode->cChild == NULL)
     {
@@ -189,9 +200,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->cChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->cChild);
     break;
+  case 'D':
   case 'd':
     if (currentNode->dChild == NULL)
     {
@@ -200,9 +213,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->dChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->dChild);
     break;
+  case 'E':
   case 'e':
     if (currentNode->eChild == NULL)
     {
@@ -211,9 +226,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->eChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->eChild);
     break;
+  case 'F':
   case 'f':
     if (currentNode->fChild == NULL)
     {
@@ -222,9 +239,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->fChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->fChild);
     break;
+  case 'G':
   case 'g':
     if (currentNode->gChild == NULL)
     {
@@ -233,9 +252,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->gChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->gChild);
     break;
+  case 'H':
   case 'h':
     if (currentNode->hChild == NULL)
     {
@@ -244,9 +265,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->hChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->hChild);
     break;
+  case 'I':
   case 'i':
     if (currentNode->iChild == NULL)
     {
@@ -255,9 +278,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->iChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->iChild);
     break;
+  case 'J':
   case 'j':
     if (currentNode->jChild == NULL)
     {
@@ -266,9 +291,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->jChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->jChild);
     break;
+  case 'K':
   case 'k':
     if (currentNode->kChild == NULL)
     {
@@ -277,9 +304,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->kChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->kChild);
     break;
+  case 'L':
   case 'l':
     if (currentNode->lChild == NULL)
     {
@@ -288,9 +317,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->lChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->lChild);
     break;
+  case 'M':
   case 'm':
     if (currentNode->mChild == NULL)
     {
@@ -299,9 +330,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->mChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->mChild);
     break;
+  case 'N':
   case 'n':
     if (currentNode->nChild == NULL)
     {
@@ -310,9 +343,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->nChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->nChild);
     break;
+  case 'O':
   case 'o':
     if (currentNode->oChild == NULL)
     {
@@ -321,9 +356,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->nChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->oChild);
     break;
+  case 'P':
   case 'p':
     if (currentNode->pChild == NULL)
     {
@@ -332,9 +369,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->oChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->pChild);
     break;
+  case 'Q':
   case 'q':
     if (currentNode->qChild == NULL)
     {
@@ -343,9 +382,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->qChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->qChild);
     break;
+  case 'R':
   case 'r':
     if (currentNode->rChild == NULL)
     {
@@ -354,9 +395,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->rChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->rChild);
     break;
+  case 'S':
   case 's':
     if (currentNode->sChild == NULL)
     {
@@ -365,9 +408,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->sChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->sChild);
     break;
+  case 'T':
   case 't':
     if (currentNode->tChild == NULL)
     {
@@ -376,9 +421,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->tChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->tChild);
     break;
+  case 'U':
   case 'u':
     if (currentNode->uChild == NULL)
     {
@@ -387,9 +434,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->uChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->uChild);
     break;
+  case 'V':
   case 'v':
     if (currentNode->vChild == NULL)
     {
@@ -398,9 +447,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->vChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->vChild);
     break;
+  case 'W':
   case 'w':
     if (currentNode->wChild == NULL)
     {
@@ -409,9 +460,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->wChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->wChild);
     break;
+  case 'X':
   case 'x':
     if (currentNode->xChild == NULL)
     {
@@ -420,9 +473,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->xChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->xChild);
     break;
+  case 'Y':
   case 'y':
     if (currentNode->yChild == NULL)
     {
@@ -431,9 +486,11 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->yChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->yChild);
     break;
+  case 'Z':
   case 'z':
     if (currentNode->zChild == NULL)
     {
@@ -442,6 +499,7 @@ int addWordOccurrence(const char *word, const int wordLength, struct trieNode *c
       {
         return -1;
       }
+      currentNode->zChild->count = 0;
     }
     addWordOccurrence(word + 1, wordLength - 1, currentNode->zChild);
     break;
