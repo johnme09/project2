@@ -1,4 +1,4 @@
-Mary	Hours Worked: 2
+Mary	Hours Worked: 2.5
 Functions Made:
 freeTrieMemory()
 printTrieContents()
@@ -7,4 +7,4 @@ addWordOccurence()
 Elize	Hours Worked:
 Functions Made:
 main()
-getText()
+indexPage()
