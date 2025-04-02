@@ -4,7 +4,9 @@ freeTrieMemory()
 printTrieContents()
 addWordOccurence()
 
-Elize	Hours Worked: 2
+Elize	Hours Worked: 4
 Functions Made:
 main()
 indexPage()
+
+We worked on compilation and debugging together
