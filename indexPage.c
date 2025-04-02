@@ -24,7 +24,7 @@ int indexPage(const char *url, struct trieNode *root);
 
 int addWordOccurrence(const char *word, int *wordLength, struct trieNode *currentNode);
 
-void printTrieContents(struct trieNode *currentNode, char *previousCharacters);
+void printTrieContents(struct trieNode *currentNode, char *previousCharacters, int depth);
 
 int freeTrieMemory(struct trieNode *currentNode);
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
   }
 
   char wordBuffer[1000] = "";
-  printTrieContents(root, wordBuffer);
+  printTrieContents(root, wordBuffer, 0);
   freeTrieMemory(root);
 
   return 0;
@@ -85,7 +85,7 @@ int indexPage(const char *url, struct trieNode *root)
     return -1;
   }
 
-  // printf("%s\n", url);
+  printf("%s\n", url);
 
   for (int i = 0; i < bufferSize; i++)
   {
@@ -107,8 +107,6 @@ int indexPage(const char *url, struct trieNode *root)
     freeTrieMemory(root);
     return -1;
   }
-
-  // char *wordBuffer = word;
   char *bufferCursor = buffer;
   int wordLength = 0;
   int isLetter = 0;
@@ -120,6 +118,7 @@ int indexPage(const char *url, struct trieNode *root)
       if (isLetter)
       {
         buffer[i] = '\0';
+        printf("\t%s\n", bufferCursor);
         if ((addWordOccurrence(bufferCursor, &wordLength, root)) != 0)
         {
           printf("addWordOccurrence failed\n");
@@ -169,22 +168,21 @@ int addWordOccurrence(const char *word, int *wordLength, struct trieNode *curren
   return 0;
 }
 
-void printTrieContents(struct trieNode *currentNode, char *previousCharacters)
+void printTrieContents(struct trieNode *currentNode, char *previousCharacters, int depth)
 {
   if (currentNode == NULL)
   {
     return;
   }
-  int stringLength = strlen(previousCharacters);
   if (currentNode->count)
   {
-    printf("%s", previousCharacters);
+    previousCharacters[depth] = '\0';
+    printf("%s: %d\n", previousCharacters, currentNode->count);
   }
-  previousCharacters[stringLength + 1] = '\0';
   for (int i = 0; i < 26; i++)
   {
-    previousCharacters[stringLength] = 'a' + i;
-    printTrieContents(currentNode->children[i], previousCharacters);
+    previousCharacters[depth] = 'a' + i;
+    printTrieContents(currentNode->children[i], previousCharacters, depth + 1);
   }
 }
 
